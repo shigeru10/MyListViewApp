@@ -6,9 +6,13 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -51,9 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
             user.setName(names[i]);
             user.setLoc(locs[i]);
+            users.add(user);
         }
 
         UserAdapter adapter = new UserAdapter(this, 0, users);
+        myListView.setAdapter(adapter);
     }
 
     public class UserAdapter extends ArrayAdapter<User> {
@@ -66,6 +72,27 @@ public class MainActivity extends AppCompatActivity {
             );
         }
 
+        @Override
+        public View getView(int pos, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = layoutInflater.inflate(
+                        R.layout.list_item,
+                        parent,
+                        false
+                );
+            }
+
+            User user = (User) getItem(pos);
+
+            ((ImageView) convertView.findViewById(R.id.icon))
+                    .setImageBitmap(user.getIcon());
+            ((TextView) convertView.findViewById(R.id.name))
+                    .setText(user.getName());
+            ((TextView) convertView.findViewById(R.id.loc))
+                    .setText(user.getLoc());
+
+            return convertView;
+        }
     }
 
     public class User {
