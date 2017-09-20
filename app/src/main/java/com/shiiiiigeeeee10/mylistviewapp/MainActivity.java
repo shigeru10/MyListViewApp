@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            items.add("item-" + i);
+//            items.add("item-" + i);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 items
         );
 
+        myListView.setEmptyView(findViewById(R.id.emptyView));
         myListView.setAdapter(adapter);
     }
 }
